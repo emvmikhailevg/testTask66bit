@@ -90,11 +90,17 @@
         <label>
             <input type="text" th:field="*{name}" required/>
         </label><br/>
+        <div th:if="${#fields.hasErrors('name')}" class="error">
+            <span th:errors="*{name}"></span>
+        </div>
 
         <label>Фамилия:</label>
         <label>
             <input type="text" th:field="*{surname}" required/>
         </label><br/>
+        <div th:if="${#fields.hasErrors('surname')}" class="error">
+            <span th:errors="*{surname}"></span>
+        </div>
 
         <label>Пол:</label>
         <label>
@@ -103,22 +109,32 @@
                         th:value="${sex}" th:text="${sex.name()}"></option>
             </select>
         </label><br/>
+        <div th:if="${#fields.hasErrors('sex')}" class="error">
+            <span th:errors="*{sex}"></span>
+        </div>
 
         <label>День рождения:</label>
         <label>
             <input type="date" th:field="*{birthday}" required/>
         </label><br/>
+        <div th:if="${#fields.hasErrors('birthday')}" class="error">
+            <span th:errors="*{birthday}"></span>
+        </div>
 
         <label>Команда:</label>
         <label>
-            <select th:field="*{team}">
+            <select id="existingTeamSelect" th:field="*{team}">
                 <option value="">Выберите команду</option>
                 <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
             </select>
         </label>
         <label>
-            <input type="text" name="newTeamName" placeholder="Введите название новой команды, если ее нет в списке"/>
+            <input id="newTeamInput" type="text" name="newTeamName" placeholder="Введите название новой команды"/>
         </label><br/>
+        <div th:if="${#fields.hasErrors('team')}" class="error">
+            <span th:errors="*{team}"></span>
+        </div>
+
 
         <label>Страна:</label>
         <label>
@@ -127,10 +143,28 @@
                         th:value="${country}" th:text="${country.name()}"></option>
             </select>
         </label><br/>
+        <div th:if="${#fields.hasErrors('country')}" class="error">
+            <span th:errors="*{country}"></span>
+        </div>
 
         <button type="submit">Добавить игрока</button>
     </form>
 
     <a href="/list">Список футболистов</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var existingTeamSelect = document.getElementById('existingTeamSelect');
+            var newTeamInput = document.getElementById('newTeamInput');
+
+            existingTeamSelect.addEventListener('change', function() {
+                if (existingTeamSelect.value === '') {
+                    newTeamInput.required = true;
+                } else {
+                    newTeamInput.required = false;
+                }
+            });
+        });
+    </script>
 </body>
 </html>

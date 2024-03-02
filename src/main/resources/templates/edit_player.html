@@ -92,11 +92,17 @@
     <label>
       <input type="text" th:field="*{name}" required/>
     </label><br/>
+    <div th:if="${#fields.hasErrors('name')}" class="error">
+      <span th:errors="*{name}"></span>
+    </div>
 
     <label>Фамилия:</label>
     <label>
       <input type="text" th:field="*{surname}" required/>
     </label><br/>
+    <div th:if="${#fields.hasErrors('surname')}" class="error">
+      <span th:errors="*{surname}"></span>
+    </div>
 
     <label>Пол:</label>
     <label>
@@ -105,11 +111,17 @@
                 th:value="${sex}" th:text="${sex.name()}"></option>
       </select>
     </label><br/>
+    <div th:if="${#fields.hasErrors('sex')}" class="error">
+      <span th:errors="*{sex}"></span>
+    </div>
 
     <label>День рождения:</label>
     <label>
       <input type="date" th:field="*{birthday}" required/>
     </label><br/>
+    <div th:if="${#fields.hasErrors('birthday')}" class="error">
+      <span th:errors="*{birthday}"></span>
+    </div>
 
     <label>Команда:</label>
     <label>
@@ -118,6 +130,9 @@
         <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
       </select>
     </label><br/>
+    <div th:if="${#fields.hasErrors('team')}" class="error">
+      <span th:errors="*{team}"></span>
+    </div>
 
     <label>Страна:</label>
     <label>
@@ -127,7 +142,9 @@
                 th:text="${country.name()}"></option>
       </select>
     </label><br/>
-
+    <div th:if="${#fields.hasErrors('country')}" class="error">
+      <span th:errors="*{country}"></span>
+    </div>
 
     <button type="submit">Сохранить</button>
   </form>

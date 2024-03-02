@@ -59,7 +59,7 @@
 <body>
     <h2>Список футболистов</h2>
 
-    <table>
+    <table id="playerTable">
         <thead>
         <tr>
             <th>Имя</th>
@@ -76,12 +76,14 @@
             <td th:text="${player.surname}"></td>
             <td th:text="${player.sex}"></td>
             <td th:text="${player.birthday}"></td>
-            <td th:text="${player.team.name}"></td>
+            <td th:if="${player.team != null}" th:text="${player.team.name}"></td>
+            <td th:unless="${player.team != null}">Без команды</td>
             <td>
                 <a th:href="@{'/edit/' + ${player.id}}">Редактировать</a>
             </td>
         </tr>
         </tbody>
+
     </table>
 
     <a href="/main">Добавить футболиста</a>

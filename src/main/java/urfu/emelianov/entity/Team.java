@@ -1,13 +1,17 @@
 package urfu.emelianov.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Objects;
 
+/**
+ *  * Класс {@code Team} представляет JPA-сущность команды.
+ */
 @Entity
 @Getter
 @Setter
@@ -19,6 +23,8 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotBlank(message = "Название команды не должно быть пустым")
+    @Size(max = 25, message = "Название команды должно содержать не более {max} символов")
     private String name;
 
     @Override
